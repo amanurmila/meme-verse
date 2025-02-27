@@ -3,10 +3,12 @@ import logo from "../assets/logo.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
+import ThemeContext from "../Providers/ThemeContext";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const navOptions = (
     <>
@@ -116,6 +118,16 @@ const Navbar = () => {
               </div>
             </div>
           </Link>
+          <button
+            className="p-2 rounded-full transition-all duration-300 bg-base-100 shadow-md mr-4"
+            onClick={toggleTheme}
+          >
+            {theme === "light" ? (
+              <FaMoon className="text-xl text-gray-700" />
+            ) : (
+              <FaSun className="text-xl text-yellow-500" />
+            )}
+          </button>
         </div>
 
         {/* Navbar Center */}
