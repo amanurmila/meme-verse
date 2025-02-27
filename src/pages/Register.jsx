@@ -5,7 +5,8 @@ import { FaGoogle, FaRegEyeSlash, FaEye } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
-  const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
+  const { createNewUser, setUser, updateUserProfile, handleGoogleSignIn } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
@@ -49,6 +50,12 @@ const Register = () => {
       .catch((error) => {
         setFirebaseError(error.message);
       });
+  };
+
+  const handleSignIn = () => {
+    handleGoogleSignIn(navigate).catch((error) => {
+      setFirebaseError(error.message);
+    });
   };
 
   return (
@@ -119,7 +126,10 @@ const Register = () => {
             </Link>
           </p>
           <div className="mt-4">
-            <button className="btn w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md shadow-md">
+            <button
+              onClick={handleSignIn}
+              className="btn w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md shadow-md"
+            >
               <FaGoogle /> Register With Google
             </button>
           </div>
