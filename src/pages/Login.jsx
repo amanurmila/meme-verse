@@ -35,6 +35,7 @@ const Login = () => {
     userLogin(email, password)
       .then((result) => {
         const user = result.user;
+        toast.success("You Logged in Successfully");
         setUser(user);
         navigate("/");
       })

@@ -1,11 +1,13 @@
-
+import HomeMeme from "../components/HomeMeme";
 
 const Home = () => {
-    return (
-        <div>
-            <button className="btn btn-success">I am home</button>
-        </div>
-    );
+  return (
+    <div>
+      <section>
+        <HomeMeme />
+      </section>
+    </div>
+  );
 };
 
 export default Home;

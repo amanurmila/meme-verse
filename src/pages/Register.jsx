@@ -37,12 +37,13 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
+        toast.success("Successfully Created Account");
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(() => {
             navigate("/");
           })
           .catch((err) => {
-            setFirebaseError("Failed to update user profile.");
+            setFirebaseError("Failed to update user profile.", err);
           });
       })
       .catch((error) => {
@@ -54,7 +55,9 @@ const Register = () => {
     <div className="min-h-screen">
       <div className="flex items-center justify-center min-h-[80vh] px-4">
         <div className="card bg-gray-400 w-full max-w-md rounded-lg shadow-lg p-8 text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Register</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            Register
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="form-control">
               <input
@@ -116,9 +119,7 @@ const Register = () => {
             </Link>
           </p>
           <div className="mt-4">
-            <button
-              className="btn w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md shadow-md"
-            >
+            <button className="btn w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md shadow-md">
               <FaGoogle /> Register With Google
             </button>
           </div>

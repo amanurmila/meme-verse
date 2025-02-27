@@ -3,6 +3,11 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Explore from "../pages/Explore";
+import MemeDetails from "../pages/MemeDetails";
+import UploadMeme from "../pages/UploadMeme";
+import UserDashboard from "../pages/UserDashboard";
+import ErrorPage from "../pages/ErrorPage";
 
 const routes = createBrowserRouter([
   {
@@ -14,6 +19,22 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/explore",
+        element: <Explore />,
+      },
+      {
+        path: `/memeDetails/:id`,
+        element: <MemeDetails />,
+      },
+      {
+        path: "Upload",
+        element: <UploadMeme />,
+      },
+      {
+        path: "userDashboard",
+        element: <UserDashboard />,
+      },
+      {
         path: "/login",
         element: <Login />,
       },
@@ -22,6 +43,10 @@ const routes = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 

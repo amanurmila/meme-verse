@@ -1,7 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.jpg";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
+
   const navOptions = (
     <>
       <li>
@@ -32,20 +38,38 @@ const Navbar = () => {
           Explore
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/Upload"
-          className={({ isActive }) =>
-            `transition-transform duration-300 hover:scale-110 hover:shadow-lg px-4 py-2 rounded-md ${
-              isActive
-                ? "bg-cyan-600 text-white"
-                : " text-cyan-500 border border-cyan-500"
-            }`
-          }
-        >
-          Upload
-        </NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/Upload"
+              className={({ isActive }) =>
+                `transition-transform duration-300 hover:scale-110 hover:shadow-lg px-4 py-2 rounded-md ${
+                  isActive
+                    ? "bg-cyan-600 text-white"
+                    : " text-cyan-500 border border-cyan-500"
+                }`
+              }
+            >
+              Upload
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/userDashboard"
+              className={({ isActive }) =>
+                `transition-transform duration-300 hover:scale-110 hover:shadow-lg px-4 py-2 rounded-md ${
+                  isActive
+                    ? "bg-cyan-600 text-white"
+                    : " text-cyan-500 border border-cyan-500"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -101,11 +125,27 @@ const Navbar = () => {
 
         {/* Navbar End */}
         <div className="navbar-end">
-          <Link to="/login" className="btn font-bold bg-gradient-to-br from-purple-600 to-cyan-600 hover:bg-gradient-to-bl hover:from-cyan-600 hover:to-purple-600 transition-transform duration-300 hover:scale-110">
-            Login
-          </Link>
+          {user ? (
+            <button
+              onClick={() => {
+                toast.success("Logged out successfully!");
+                logOut();
+              }}
+              className="btn btn-outline"
+            >
+              LogOut
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="btn font-bold bg-gradient-to-br from-purple-600 to-cyan-600 hover:bg-gradient-to-bl hover:from-cyan-600 hover:to-purple-600 transition-transform duration-300 hover:scale-110"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
